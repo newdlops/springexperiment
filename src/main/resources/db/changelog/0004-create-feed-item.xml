@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="0004" author="newdlops">
+        <createTable tableName="feed_item">
+            <column name="id" type="VARCHAR(16)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="text" type="VARCHAR(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="color" type="VARCHAR(16)">
+                <constraints nullable="false" />
+            </column>
+            <column name="authority" type="VARCHAR(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(16)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_user_feed_item"
+                        referencedTableName="user"
+                        referencedColumnNames="id"
+                        deleteCascade="false"
+                />
+            </column>
+            <column name="page_id" type="VARCHAR(16)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_page_feed_item"
+                        referencedTableName="page"
+                        referencedColumnNames="id"
+                        deleteCascade="false"
+                />
+            </column>
+        </createTable>
+        <createIndex tableName="feed_item" indexName="feed_item_index">
+            <column name="user_id"/>
+            <column name="created_at"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="0005" author="newdlops">
+        <createTable tableName="feed_authority">
+            <column name="id" type="VARCHAR(16)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="VARCHAR(16)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_user_feed_authority"
+                        referencedTableName="user"
+                        referencedColumnNames="id"
+                        deleteCascade="false"
+                />
+            </column>
+            <column name="feed_item_id" type="VARCHAR(16)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_feed_item_id_feed_authority"
+                        referencedTableName="page"
+                        referencedColumnNames="id"
+                        deleteCascade="false"
+                />
+            </column>
+        </createTable>
+        <createIndex tableName="feed_authority" indexName="feed_item_auth_index">
+            <column name="feed_item_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
